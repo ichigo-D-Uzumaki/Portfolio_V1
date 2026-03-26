@@ -1,1592 +1,1303 @@
-< !DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Arfath_Portfolio</title>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap"
-            rel="stylesheet">
-        <style>
-            :root {
-                --accent1: #FF3CAC;
-                --accent2: #784BA0;
-                --accent3: #2B86C5;
-                --accent4: #00F5A0;
-                --bg: #0a0a0f;
-                --surface: #13131a;
-                --surface2: #1c1c28;
-                --text: #f0f0f8;
-                --muted: #888899;
-                --border: rgba(255, 255, 255, 0.08);
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Megavarshini T — Engineering Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --white: #f5f0e8;
+            --yellow: #FFD000;
+            --orange: #FF4C00;
+            --teal: #00C9B1;
+            --gray: #1a1a1a;
+            --mid: #2e2e2e;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* CUSTOM CURSOR */
+        .cursor {
+            width: 12px;
+            height: 12px;
+            background: var(--yellow);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+        }
+
+        .cursor-ring {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--yellow);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: left 0.12s ease, top 0.12s ease, width 0.2s, height 0.2s, border-color 0.2s;
+            opacity: 0.6;
+        }
+
+        body:hover .cursor {
+            opacity: 1;
+        }
+
+        /* NOISE OVERLAY */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9000;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.4rem 3rem;
+            mix-blend-mode: difference;
+        }
+
+        .nav-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            letter-spacing: 0.1em;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--yellow);
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 3rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-text {
+            position: absolute;
+            top: 50%;
+            left: -2%;
+            transform: translateY(-50%);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(18vw, 24vw, 32vw);
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.04);
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
+            animation: slideBg 20s linear infinite;
+        }
+
+        @keyframes slideBg {
+            from {
+                transform: translateY(-50%) translateX(0);
             }
 
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
+            to {
+                transform: translateY(-50%) translateX(-5%);
+            }
+        }
+
+        .hero-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 1.5rem;
+            animation: fadeUp 0.8s ease 0.2s both;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(5rem, 13vw, 14rem);
+            line-height: 0.9;
+            letter-spacing: -0.01em;
+            animation: fadeUp 0.8s ease 0.3s both;
+        }
+
+        .hero h1 .line2 {
+            color: var(--yellow);
+        }
+
+        .hero-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 3rem;
+            animation: fadeUp 0.8s ease 0.5s both;
+        }
+
+        .hero-desc {
+            max-width: 380px;
+            line-height: 1.6;
+            color: rgba(245, 240, 232, 0.6);
+            font-size: 1rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: var(--yellow);
+            color: var(--black);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+            clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+        }
+
+        .btn-primary:hover {
+            background: var(--orange);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .btn-primary .arrow {
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .btn-primary:hover .arrow {
+            transform: translate(4px, -4px);
+        }
+
+        .scroll-line {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            color: rgba(245, 240, 232, 0.35);
+            text-transform: uppercase;
+        }
+
+        .scroll-line::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: rgba(245, 240, 232, 0.2);
+        }
+
+        /* TICKER */
+        .ticker {
+            background: var(--yellow);
+            color: var(--black);
+            overflow: hidden;
+            padding: 0.9rem 0;
+            white-space: nowrap;
+        }
+
+        .ticker-inner {
+            display: inline-flex;
+            animation: ticker 20s linear infinite;
+        }
+
+        .ticker-item {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
+            padding: 0 2.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .ticker-item::after {
+            content: '✦';
+            font-size: 0.7rem;
+        }
+
+        @keyframes ticker {
+            from {
+                transform: translateX(0);
             }
 
-            body {
-                font-family: 'Space Mono', monospace;
-                background: var(--bg);
-                color: var(--text);
-                min-height: 100vh;
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* SECTION BASE */
+        section {
+            padding: 7rem 3rem;
+        }
+
+        .section-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 30px;
+            height: 2px;
+            background: var(--teal);
+        }
+
+        /* ABOUT */
+        .about {
+            background: var(--gray);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .about h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3.5rem, 6vw, 6rem);
+            line-height: 1;
+            margin-bottom: 2rem;
+        }
+
+        .about h2 span {
+            color: var(--orange);
+        }
+
+        .about-text {
+            color: rgba(245, 240, 232, 0.65);
+            line-height: 1.75;
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .stat-box {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .stat-box:hover {
+            border-color: var(--yellow);
+        }
+
+        .stat-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            color: var(--yellow);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(245, 240, 232, 0.4);
+            margin-top: 0.4rem;
+        }
+
+        .about-visual {
+            position: relative;
+        }
+
+        .photo-frame {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: var(--mid);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-frame::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--orange) 0%, transparent 60%);
+            opacity: 0.15;
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 8rem;
+            color: rgba(255, 255, 255, 0.04);
+            letter-spacing: -0.02em;
+        }
+
+        .photo-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 120px;
+            height: 120px;
+            background: var(--yellow);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--black);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.2;
+            text-align: center;
+            animation: spin 12s linear infinite;
+            padding: 10px;
+            font-size: 0.7rem;
+            font-family: 'Space Mono', monospace;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
             }
 
-            /* EDIT MODE */
-            .edit-mode [contenteditable] {
-                outline: 2px dashed var(--accent1);
-                border-radius: 4px;
-                min-width: 20px;
-                display: inline-block;
-                cursor: text;
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .photo-accent {
+            position: absolute;
+            top: 20px;
+            left: -20px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--orange);
+            z-index: -1;
+        }
+
+        /* SKILLS */
+        .skills {
+            background: var(--black);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5px;
+            background: rgba(255, 255, 255, 0.06);
+            margin-top: 1rem;
+        }
+
+        .skill-card {
+            background: var(--black);
+            padding: 2.5rem;
+            transition: background 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--yellow);
+            transition: width 0.4s ease;
+        }
+
+        .skill-card:hover::before {
+            width: 100%;
+        }
+
+        .skill-card:hover {
+            background: var(--gray);
+        }
+
+        .skill-icon {
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .skill-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.8rem;
+            color: var(--white);
+        }
+
+        .skill-card p {
+            font-size: 0.88rem;
+            color: rgba(245, 240, 232, 0.5);
+            line-height: 1.6;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 1.2rem;
+        }
+
+        .tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.6rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: rgba(245, 240, 232, 0.45);
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .skill-card:hover .tag {
+            border-color: var(--yellow);
+            color: var(--yellow);
+        }
+
+        /* PROJECTS */
+        .projects {
+            background: var(--gray);
+        }
+
+        .projects-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 3rem;
+        }
+
+        .projects h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 5vw, 5.5rem);
+            line-height: 1;
+        }
+
+        .projects h2 span {
+            color: var(--teal);
+        }
+
+        .view-all {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 0.2rem;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .view-all:hover {
+            color: var(--yellow);
+            border-color: var(--yellow);
+        }
+
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5px;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .project-item {
+            background: var(--gray);
+            display: grid;
+            grid-template-columns: 80px 1fr auto auto;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem 2.5rem;
+            transition: background 0.2s;
+            text-decoration: none;
+            color: inherit;
+            cursor: none;
+        }
+
+        .project-item:hover {
+            background: var(--mid);
+        }
+
+        .project-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.1);
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .project-item:hover .project-num {
+            color: var(--orange);
+        }
+
+        .project-info h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 0.03em;
+            margin-bottom: 0.4rem;
+            transition: color 0.2s;
+        }
+
+        .project-item:hover .project-info h3 {
+            color: var(--yellow);
+        }
+
+        .project-info p {
+            font-size: 0.88rem;
+            color: rgba(245, 240, 232, 0.45);
+        }
+
+        .project-type {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(245, 240, 232, 0.3);
+            white-space: nowrap;
+        }
+
+        .project-arrow {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.15);
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .project-item:hover .project-arrow {
+            color: var(--yellow);
+            transform: translate(5px, -5px);
+        }
+
+        /* EXPERIENCE */
+        .experience {
+            background: var(--black);
+        }
+
+        .exp-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 5rem;
+        }
+
+        .exp-left h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 5vw, 5rem);
+            line-height: 1;
+            position: sticky;
+            top: 8rem;
+        }
+
+        .exp-left h2 span {
+            color: var(--orange);
+        }
+
+        .timeline {
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .timeline-item {
+            padding: 0 0 3.5rem 2.5rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 6px;
+            width: 9px;
+            height: 9px;
+            background: var(--yellow);
+            border-radius: 50%;
+        }
+
+        .timeline-date {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: 0.6rem;
+        }
+
+        .timeline-item h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 0.03em;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-company {
+            font-size: 0.88rem;
+            color: var(--orange);
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+
+        .timeline-desc {
+            font-size: 0.9rem;
+            line-height: 1.65;
+            color: rgba(245, 240, 232, 0.55);
+        }
+
+        /* CONTACT */
+        .contact {
+            background: var(--yellow);
+            color: var(--black);
+            padding: 8rem 3rem;
+        }
+
+        .contact .section-label {
+            color: rgba(0, 0, 0, 0.45);
+        }
+
+        .contact .section-label::before {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .contact h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3.5rem, 6vw, 7rem);
+            line-height: 0.95;
+            color: var(--black);
+        }
+
+        .contact h2 .accent {
+            color: var(--orange);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-group label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            background: rgba(0, 0, 0, 0.08);
+            border: 1.5px solid rgba(0, 0, 0, 0.15);
+            padding: 0.9rem 1rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            color: var(--black);
+            outline: none;
+            transition: border-color 0.2s;
+            resize: none;
+            cursor: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--black);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-dark {
+            background: var(--black);
+            color: var(--yellow);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 1.1rem 2rem;
+            border: none;
+            cursor: none;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            width: fit-content;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+        }
+
+        .btn-dark:hover {
+            background: var(--orange);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--black);
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            color: rgba(245, 240, 232, 0.3);
+        }
+
+        .footer-copy {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            color: rgba(245, 240, 232, 0.2);
+            text-transform: uppercase;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(245, 240, 232, 0.3);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .social-links a:hover {
+            color: var(--yellow);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
             }
 
-            .edit-mode [contenteditable]:focus {
-                outline: 2px solid var(--accent4);
-                background: rgba(0, 245, 160, 0.05);
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
+        }
 
-            /* EDIT BADGE */
-            .edit-badge {
-                position: fixed;
-                top: 16px;
-                right: 16px;
-                z-index: 1000;
-                background: var(--accent1);
-                color: white;
-                padding: 8px 18px;
-                border-radius: 24px;
-                font-size: 13px;
-                font-weight: 700;
-                cursor: pointer;
-                letter-spacing: 1px;
-                transition: all 0.2s;
-                display: none;
-                align-items: center;
-                gap: 8px;
-                font-family: 'Syne', sans-serif;
-            }
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
 
-            .edit-badge:hover {
-                transform: scale(1.05);
-            }
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
 
-            .edit-badge .dot {
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background: white;
-                animation: blink 1s infinite;
-            }
-
-            @keyframes blink {
-
-                0%,
-                100% {
-                    opacity: 1
-                }
-
-                50% {
-                    opacity: 0.3
-                }
-            }
-
-            /* LOGIN OVERLAY */
-            .login-overlay {
-                position: fixed;
-                inset: 0;
-                background: rgba(10, 10, 15, 0.96);
-                backdrop-filter: blur(10px);
-                z-index: 2000;
-                display: none;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .login-box {
-                background: var(--surface);
-                border: 1px solid var(--border);
-                border-radius: 20px;
-                padding: 48px 40px;
-                width: 360px;
-                text-align: center;
-            }
-
-            .login-box h2 {
-                font-family: 'Syne', sans-serif;
-                font-size: 24px;
-                font-weight: 800;
-                margin-bottom: 8px;
-            }
-
-            .login-box p {
-                color: var(--muted);
-                font-size: 14px;
-                margin-bottom: 28px;
-            }
-
-            .login-box input {
-                width: 100%;
-                background: var(--surface2);
-                border: 1px solid var(--border);
-                color: var(--text);
-                padding: 14px 18px;
-                border-radius: 12px;
-                font-family: inherit;
-                font-size: 15px;
-                margin-bottom: 16px;
-                outline: none;
-                transition: border 0.2s;
-            }
-
-            .login-box input:focus {
-                border-color: var(--accent1);
-            }
-
-            .login-box button {
-                width: 100%;
-                background: linear-gradient(135deg, var(--accent1), var(--accent3));
-                border: none;
-                color: white;
-                padding: 14px;
-                border-radius: 12px;
-                font-family: 'Syne', sans-serif;
-                font-size: 15px;
-                font-weight: 700;
-                cursor: pointer;
-                transition: opacity 0.2s;
-            }
-
-            .login-box button:hover {
-                opacity: 0.9;
-            }
-
-            .login-err {
-                color: var(--accent1);
-                font-size: 13px;
-                margin-top: 12px;
-                display: none;
-            }
-
-            /* NAV */
+        @media (max-width: 900px) {
             nav {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                z-index: 100;
-                padding: 16px 48px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                background: rgba(10, 10, 15, 0.85);
-                backdrop-filter: blur(14px);
-                border-bottom: 1px solid var(--border);
-            }
-
-            .nav-logo {
-                font-family: 'Syne', sans-serif;
-                font-size: 20px;
-                font-weight: 800;
-                background: linear-gradient(90deg, var(--accent1), var(--accent3));
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                cursor: pointer;
-                user-select: none;
+                padding: 1.2rem 1.5rem;
             }
 
             .nav-links {
-                display: flex;
-                gap: 32px;
+                display: none;
             }
 
-            .nav-links a {
-                color: var(--muted);
-                text-decoration: none;
-                font-size: 12px;
-                letter-spacing: 2px;
-                text-transform: uppercase;
-                transition: color 0.2s;
-                cursor: pointer;
+            .hero {
+                padding: 0 1.5rem 3rem;
             }
 
-            .nav-links a:hover {
-                color: var(--text);
+            .hero-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2rem;
             }
 
-            /* SECTIONS */
             section {
-                padding: 100px 48px 70px;
-                max-width: 1060px;
-                margin: 0 auto;
+                padding: 5rem 1.5rem;
             }
 
-            /* HERO */
-            #hero {
-                padding-top: 170px;
-                padding-bottom: 110px;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .hero-label {
-                font-size: 12px;
-                letter-spacing: 3px;
-                color: var(--accent4);
-                text-transform: uppercase;
-                margin-bottom: 18px;
-            }
-
-            .hero-name {
-                font-family: 'Syne', sans-serif;
-                font-size: clamp(52px, 9vw, 96px);
-                font-weight: 800;
-                line-height: 1.02;
-                margin-bottom: 20px;
-            }
-
-            .hero-name .grad {
-                display: block;
-                background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 45%, var(--accent3) 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-
-            .hero-role {
-                font-size: 18px;
-                color: var(--muted);
-                margin-bottom: 36px;
-            }
-
-            .hero-role em {
-                color: var(--accent4);
-                font-style: normal;
-            }
-
-            .hero-cta {
-                display: flex;
-                gap: 16px;
-                flex-wrap: wrap;
-            }
-
-            .btn {
-                padding: 14px 30px;
-                border-radius: 50px;
-                font-family: 'Syne', sans-serif;
-                font-size: 14px;
-                font-weight: 700;
-                text-decoration: none;
-                cursor: pointer;
-                border: none;
-                transition: all 0.2s;
-                letter-spacing: 0.5px;
-                display: inline-block;
-            }
-
-            .btn-primary {
-                background: linear-gradient(135deg, var(--accent1), var(--accent3));
-                color: white;
-            }
-
-            .btn-secondary {
-                background: transparent;
-                color: var(--text);
-                border: 1.5px solid rgba(255, 255, 255, 0.15);
-            }
-
-            .btn:hover {
-                transform: translateY(-2px);
-            }
-
-            .hero-glow {
-                position: absolute;
-                top: 50px;
-                right: -80px;
-                width: 600px;
-                height: 600px;
-                border-radius: 50%;
-                background: radial-gradient(circle, rgba(255, 60, 172, 0.12) 0%, transparent 70%);
-                pointer-events: none;
-            }
-
-            .hero-glow2 {
-                position: absolute;
-                bottom: -100px;
-                left: -100px;
-                width: 400px;
-                height: 400px;
-                border-radius: 50%;
-                background: radial-gradient(circle, rgba(43, 134, 197, 0.1) 0%, transparent 70%);
-                pointer-events: none;
-            }
-
-            /* SECTION COMMON */
-            .section-label {
-                font-size: 12px;
-                letter-spacing: 3px;
-                color: var(--accent1);
-                text-transform: uppercase;
-                margin-bottom: 12px;
-            }
-
-            .section-title {
-                font-family: 'Syne', sans-serif;
-                font-size: 38px;
-                font-weight: 800;
-                margin-bottom: 40px;
-            }
-
-            /* ABOUT */
-            .about-grid {
-                display: grid;
-                grid-template-columns: 1.2fr 0.8fr;
-                gap: 50px;
-                align-items: start;
-            }
-
-            .about-text {
-                font-size: 15px;
-                line-height: 1.95;
-                color: var(--muted);
-            }
-
-            .about-text p {
-                margin-bottom: 18px;
-            }
-
-            .about-stats {
-                display: grid;
-                gap: 18px;
-            }
-
-            .stat-card {
-                background: var(--surface);
-                border: 1px solid var(--border);
-                border-radius: 18px;
-                padding: 26px 28px;
-                border-left: 3px solid var(--accent1);
-            }
-
-            .stat-num {
-                font-family: 'Syne', sans-serif;
-                font-size: 40px;
-                font-weight: 800;
-                background: linear-gradient(135deg, var(--accent1), var(--accent3));
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-
-            .stat-label {
-                color: var(--muted);
-                font-size: 13px;
-                margin-top: 4px;
-            }
-
-            /* SKILLS */
-            .skill-cat {
-                margin-bottom: 36px;
-            }
-
-            .skill-cat-title {
-                font-size: 12px;
-                color: var(--accent3);
-                letter-spacing: 2px;
-                text-transform: uppercase;
-                margin-bottom: 16px;
+            .about-grid,
+            .contact-inner,
+            .exp-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
             }
 
             .skills-grid {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
-                margin-bottom: 12px;
-            }
-
-            .skill-tag {
-                background: var(--surface);
-                border: 1px solid var(--border);
-                border-radius: 50px;
-                padding: 10px 22px;
-                font-size: 13px;
-                transition: all 0.2s;
-                cursor: default;
-                display: inline-flex;
-                align-items: center;
-                gap: 6px;
-            }
-
-            .skill-tag:hover {
-                border-color: var(--accent1);
-                color: var(--accent4);
-                transform: translateY(-2px);
-            }
-
-            .remove-skill {
-                cursor: pointer;
-                color: var(--accent1);
-                display: none;
-                font-size: 16px;
-                line-height: 1;
-            }
-
-            .edit-mode .remove-skill {
-                display: inline;
-            }
-
-            .add-btn {
-                background: transparent;
-                border: 1px dashed rgba(255, 255, 255, 0.15);
-                border-radius: 50px;
-                padding: 10px 22px;
-                color: var(--muted);
-                font-size: 13px;
-                cursor: pointer;
-                font-family: inherit;
-                transition: all 0.2s;
-                display: none;
-            }
-
-            .add-btn:hover {
-                border-color: var(--accent4);
-                color: var(--accent4);
-            }
-
-            .edit-mode .add-btn {
-                display: inline-block;
-            }
-
-            /* PROJECTS */
-            .projects-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-                gap: 24px;
-            }
-
-            .project-card {
-                background: var(--surface);
-                border: 1px solid var(--border);
-                border-radius: 22px;
-                padding: 30px;
-                transition: all 0.3s;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .project-card::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 3px;
-                background: linear-gradient(90deg, var(--accent1), var(--accent3));
-            }
-
-            .project-card:hover {
-                border-color: rgba(255, 60, 172, 0.3);
-                transform: translateY(-5px);
-            }
-
-            .project-num {
-                font-size: 48px;
-                font-family: 'Syne', sans-serif;
-                font-weight: 800;
-                color: rgba(255, 255, 255, 0.04);
-                position: absolute;
-                top: 14px;
-                right: 18px;
-            }
-
-            .project-title {
-                font-family: 'Syne', sans-serif;
-                font-size: 21px;
-                font-weight: 700;
-                margin-bottom: 12px;
-            }
-
-            .project-desc {
-                color: var(--muted);
-                font-size: 13px;
-                line-height: 1.75;
-                margin-bottom: 20px;
-            }
-
-            .project-tags {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 8px;
-                margin-bottom: 22px;
-            }
-
-            .project-tag {
-                background: rgba(255, 60, 172, 0.1);
-                color: var(--accent1);
-                border-radius: 6px;
-                padding: 4px 12px;
-                font-size: 11px;
-                letter-spacing: 0.5px;
-            }
-
-            .project-links {
-                display: flex;
-                gap: 16px;
-            }
-
-            .project-link {
-                font-size: 12px;
-                color: var(--accent3);
-                text-decoration: none;
-                letter-spacing: 1px;
-                text-transform: uppercase;
-                transition: color 0.2s;
-            }
-
-            .project-link:hover {
-                color: var(--accent4);
-            }
-
-            .add-project-btn {
-                background: var(--surface);
-                border: 1px dashed rgba(255, 255, 255, 0.12);
-                border-radius: 22px;
-                padding: 30px;
-                display: none;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                font-family: 'Syne', sans-serif;
-                font-size: 16px;
-                color: var(--muted);
-                min-height: 220px;
-                transition: all 0.2s;
-            }
-
-            .add-project-btn:hover {
-                border-color: var(--accent1);
-                color: var(--accent4);
-            }
-
-            .edit-mode .add-project-btn {
-                display: flex;
-            }
-
-            .remove-project {
-                position: absolute;
-                top: 14px;
-                left: 14px;
-                background: var(--accent1);
-                border: none;
-                color: white;
-                width: 26px;
-                height: 26px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 15px;
-                display: none;
-                align-items: center;
-                justify-content: center;
-                z-index: 10;
-                line-height: 1;
-            }
-
-            .edit-mode .remove-project {
-                display: flex;
-            }
-
-            /* RESUME */
-            .resume-section {
-                background: var(--surface);
-                border: 1px solid var(--border);
-                border-radius: 22px;
-                padding: 44px;
-            }
-
-            .resume-row {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                flex-wrap: wrap;
-                gap: 24px;
-            }
-
-            .resume-info h3 {
-                font-family: 'Syne', sans-serif;
-                font-size: 24px;
-                font-weight: 800;
-                margin-bottom: 10px;
-            }
-
-            .resume-info p {
-                color: var(--muted);
-                font-size: 14px;
-                line-height: 1.75;
-            }
-
-            .resume-edit-row {
-                display: none;
-                margin-top: 24px;
-                padding-top: 24px;
-                border-top: 1px solid var(--border);
-            }
-
-            .resume-edit-row label {
-                color: var(--muted);
-                font-size: 13px;
-                display: block;
-                margin-bottom: 10px;
-            }
-
-            .resume-edit-row input {
-                width: 100%;
-                background: var(--surface2);
-                border: 1px solid var(--border);
-                color: var(--text);
-                padding: 13px 16px;
-                border-radius: 10px;
-                font-family: inherit;
-                font-size: 14px;
-                outline: none;
-                transition: border 0.2s;
-            }
-
-            .resume-edit-row input:focus {
-                border-color: var(--accent1);
-            }
-
-            /* CONTACT */
-            .contact-grid {
-                display: grid;
                 grid-template-columns: 1fr 1fr;
-                gap: 50px;
             }
 
-            .contact-item {
-                display: flex;
-                align-items: flex-start;
-                gap: 18px;
-                margin-bottom: 28px;
+            .project-item {
+                grid-template-columns: 60px 1fr;
             }
 
-            .contact-icon {
-                width: 48px;
-                height: 48px;
-                background: var(--surface);
-                border: 1px solid var(--border);
-                border-radius: 14px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 20px;
-                flex-shrink: 0;
-            }
-
-            .contact-label {
-                font-size: 11px;
-                color: var(--muted);
-                text-transform: uppercase;
-                letter-spacing: 2px;
-                margin-bottom: 6px;
-            }
-
-            .contact-val {
-                font-size: 15px;
-            }
-
-            .contact-form {
-                display: flex;
-                flex-direction: column;
-                gap: 16px;
-            }
-
-            .contact-form input,
-            .contact-form textarea {
-                background: var(--surface);
-                border: 1px solid var(--border);
-                color: var(--text);
-                padding: 15px 18px;
-                border-radius: 14px;
-                font-family: inherit;
-                font-size: 14px;
-                resize: none;
-                outline: none;
-                transition: border 0.2s;
-            }
-
-            .contact-form input:focus,
-            .contact-form textarea:focus {
-                border-color: var(--accent1);
-            }
-
-            .contact-form textarea {
-                height: 130px;
-            }
-
-            /* DIVIDER */
-            .divider {
-                height: 1px;
-                background: var(--border);
-                max-width: 1060px;
-                margin: 0 auto;
-            }
-
-            /* FOOTER */
-            footer {
-                text-align: center;
-                padding: 44px;
-                border-top: 1px solid var(--border);
-                color: var(--muted);
-                font-size: 13px;
-            }
-
-            /* TOAST */
-            .toast {
-                position: fixed;
-                bottom: 32px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: var(--accent4);
-                color: #0a0a0f;
-                padding: 13px 30px;
-                border-radius: 50px;
-                font-family: 'Syne', sans-serif;
-                font-weight: 700;
-                font-size: 14px;
-                z-index: 9999;
-                animation: toastFade 2.6s forwards;
-                pointer-events: none;
-            }
-
-            @keyframes toastFade {
-                0% {
-                    opacity: 0;
-                    transform: translateX(-50%) translateY(10px);
-                }
-
-                15% {
-                    opacity: 1;
-                    transform: translateX(-50%) translateY(0);
-                }
-
-                80% {
-                    opacity: 1;
-                }
-
-                100% {
-                    opacity: 0;
-                    transform: translateX(-50%) translateY(8px);
-                }
-            }
-
-            /* RESPONSIVE */
-            @media (max-width: 768px) {
-                nav {
-                    padding: 14px 20px;
-                }
-
-                section {
-                    padding: 80px 20px 50px;
-                }
-
-                .about-grid {
-                    grid-template-columns: 1fr;
-                }
-
-                .contact-grid {
-                    grid-template-columns: 1fr;
-                }
-
-                .hero-name {
-                    font-size: 52px;
-                }
-
-                .nav-links {
-                    gap: 18px;
-                }
-
-                .resume-section {
-                    padding: 28px;
-                }
-
-                .resume-row {
-                    flex-direction: column;
-                }
-            }
-
-            @media (max-width: 480px) {
-                .nav-links {
-                    display: none;
-                }
-
-                .hero-name {
-                    font-size: 40px;
-                }
-            }
-
-            /* PROJECT DETAIL PAGE */
-            .project-detail-page {
-                position: fixed;
-                inset: 0;
-                background: var(--bg);
-                z-index: 500;
-                overflow-y: auto;
+            .project-type,
+            .project-arrow {
                 display: none;
-                animation: slideIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
             }
 
-            .project-detail-page.active {
-                display: block;
+            footer {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
             }
+        }
+    </style>
+</head>
 
-            @keyframes slideIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(40px);
-                }
+<body>
 
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
 
-            .detail-back-btn {
-                display: inline-flex;
-                align-items: center;
-                gap: 10px;
-                background: var(--surface);
-                border: 1px solid var(--border);
-                color: var(--text);
-                padding: 12px 22px;
-                border-radius: 50px;
-                font-family: 'Space Mono', monospace;
-                font-size: 13px;
-                cursor: pointer;
-                transition: all 0.2s;
-                text-decoration: none;
-                margin-bottom: 40px;
-            }
+    <!-- NAV -->
+    <nav>
+        <a href="#" class="nav-logo">MT</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-            .detail-back-btn:hover {
-                border-color: var(--accent1);
-                color: var(--accent4);
-                transform: translateX(-4px);
-            }
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-text">ENGINEER</div>
+        <div class="hero-tag">Open to Opportunities — EEE Graduate · Salem, Tamil Nadu</div>
+        <h1>
+            Mega<br>
+            <span class="line2">Varshini</span>
+        </h1>
+        <div class="hero-bottom">
+            <p class="hero-desc">
+                Electrical & Electronics Engineering graduate with hands-on experience in automotive NPD, validation,
+                PCB assembly, and data analytics. Currently a Trainee Engineer at DTVS Technologies.
+            </p>
+            <div class="hero-cta">
+                <a href="#projects" class="btn-primary">
+                    View My Work <span class="arrow">↗</span>
+                </a>
+                <div class="scroll-line">Scroll to explore</div>
+            </div>
+        </div>
+    </section>
 
-            .detail-content {
-                max-width: 860px;
-                margin: 0 auto;
-                padding: 100px 48px 80px;
-            }
+    <!-- TICKER -->
+    <div class="ticker">
+        <div class="ticker-inner">
+            <span class="ticker-item">Electrical & Electronics Engineering</span>
+            <span class="ticker-item">NPD & Validation</span>
+            <span class="ticker-item">PCB Assembly & Testing</span>
+            <span class="ticker-item">Data Analytics</span>
+            <span class="ticker-item">Hydraulic Systems</span>
+            <span class="ticker-item">Power BI · Google Colab · AutoCAD</span>
+            <span class="ticker-item">Electrical & Electronics Engineering</span>
+            <span class="ticker-item">NPD & Validation</span>
+            <span class="ticker-item">PCB Assembly & Testing</span>
+            <span class="ticker-item">Data Analytics</span>
+            <span class="ticker-item">Hydraulic Systems</span>
+            <span class="ticker-item">Power BI · Google Colab · AutoCAD</span>
+        </div>
+    </div>
 
-            @media (max-width: 768px) {
-                .detail-content {
-                    padding: 80px 20px 60px;
-                }
-            }
-
-            .detail-label {
-                font-size: 12px;
-                letter-spacing: 3px;
-                color: var(--accent1);
-                text-transform: uppercase;
-                margin-bottom: 14px;
-            }
-
-            .detail-title {
-                font-family: 'Syne', sans-serif;
-                font-size: clamp(30px, 5vw, 52px);
-                font-weight: 800;
-                line-height: 1.1;
-                margin-bottom: 24px;
-            }
-
-            .detail-tags {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
-                margin-bottom: 40px;
-            }
-
-            .detail-tag {
-                background: rgba(255, 60, 172, 0.1);
-                color: var(--accent1);
-                border-radius: 6px;
-                padding: 6px 16px;
-                font-size: 12px;
-                letter-spacing: 0.5px;
-            }
-
-            .detail-divider {
-                height: 1px;
-                background: var(--border);
-                margin: 36px 0;
-            }
-
-            .detail-section-title {
-                font-family: 'Syne', sans-serif;
-                font-size: 18px;
-                font-weight: 700;
-                margin-bottom: 16px;
-                color: var(--accent4);
-            }
-
-            .detail-body {
-                color: var(--muted);
-                font-size: 15px;
-                line-height: 2;
-            }
-
-            .detail-body p {
-                margin-bottom: 18px;
-            }
-
-            .detail-highlights {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-                gap: 20px;
-                margin: 28px 0;
-            }
-
-            .detail-highlight-card {
-                background: var(--surface);
-                border: 1px solid var(--border);
-                border-radius: 16px;
-                padding: 22px 24px;
-                border-left: 3px solid var(--accent1);
-            }
-
-            .detail-highlight-card h4 {
-                font-family: 'Syne', sans-serif;
-                font-size: 14px;
-                font-weight: 700;
-                margin-bottom: 6px;
-            }
-
-            .detail-highlight-card p {
-                color: var(--muted);
-                font-size: 13px;
-                line-height: 1.6;
-                margin: 0;
-            }
-
-            .detail-links {
-                display: flex;
-                gap: 16px;
-                flex-wrap: wrap;
-                margin-top: 40px;
-            }
-        </style>
-    </head>
-
-    <body>
-        < !-- LOGIN OVERLAY -->
-            <div class="login-overlay" id="loginOverlay">
-                <div class="login-box">
-                    <h2>🔐 Owner Access</h2>
-                    <p>Enter your password to edit this portfolio</p><input type="password" id="pwInput"
-                        placeholder="Enter password" autocomplete="off" /><button onclick="checkLogin()">Unlock
-                        Editor</button>
-                    <div class="login-err" id="loginErr">Incorrect password. Try again.</div>
+    <!-- ABOUT -->
+    <section class="about" id="about">
+        <div class="about-grid">
+            <div>
+                <div class="section-label reveal">01 — About Me</div>
+                <h2 class="reveal">Engineered to <span>Validate</span><br>& Deliver</h2>
+                <p class="about-text reveal">I'm an Electrical & Electronics Engineering graduate with real-world
+                    exposure to automotive development, defence electronics, and data-driven engineering. I thrive at
+                    the intersection of hardware and analysis.</p>
+                <p class="about-text reveal">From wiring automotive control systems at DTVS to testing defence-grade
+                    PCBs at Bel Thales, I bring a hands-on, results-focused mindset to every engineering challenge.</p>
+                <div class="stats-row reveal">
+                    <div class="stat-box">
+                        <div class="stat-num">7.8</div>
+                        <div class="stat-label">B.E. CGPA</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num">3</div>
+                        <div class="stat-label">Industry Roles</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num">88%</div>
+                        <div class="stat-label">HSC Score</div>
+                    </div>
                 </div>
             </div>
-            < !-- EDIT BADGE (shown after login) -->
-                <div class="edit-badge" id="editBadge" onclick="toggleEdit()"><span class="dot"></span><span
-                        id="editLabel">Edit Portfolio</span></div>
-                < !-- NAV -->
-                    <nav>
-                        <div class="nav-logo" id="logoText" title="Triple-click to enter edit mode">Arfath</div>
-                        <div class="nav-links"><a onclick="goTo('about')">About</a><a
-                                onclick="goTo('skills')">Skills</a><a onclick="goTo('projects')">Projects</a><a
-                                onclick="goTo('resume')">Resume</a><a onclick="goTo('contact')">Contact</a></div>
-                    </nav>
-                    < !-- HERO -->
-                        <section id="hero">
-                            <div class="hero-glow"></div>
-                            <div class="hero-glow2"></div>
-                            <div class="hero-label" contenteditable="false">Open to opportunities ✦</div>
-                            <div class="hero-name"><span contenteditable="false">Hello,
-                                    I'm</span>
-                                <span class="grad" contenteditable="false">Mohammed Arfath</span>
-                            </div>
-                            <div class="hero-role"><em contenteditable="false">R&amp;D Engineer</em> &amp; <em
-                                    contenteditable="false">Part-Time Full Stack Developer</em><span
-                                    contenteditable="false"> — based in Chennai, India</span></div>
-                            <div class="hero-cta"><a class="btn btn-primary" onclick="goTo('projects')">View My
-                                    Work</a><a class="btn btn-secondary" onclick="goTo('contact')">Contact Me</a></div>
-                        </section>
-                        <div class="divider"></div>
-                        < !-- ABOUT -->
-                            <section id="about">
-                                <div class="section-label">Who I Am</div>
-                                <div class="section-title" contenteditable="false">About Me</div>
-                                <div class="about-grid">
-                                    <div class="about-text">
-                                        <p contenteditable="false">Hey there! I'm Mohammed Arfath, a Research &amp;
-                                            Development Engineer at Delphi TVS Technologies Ltd with 2+ years of
-                                            hands-on experience in machine development, electrical wiring, diagnostics,
-                                            and product validation.</p>
-                                        <p contenteditable="false">On the side, I build web applications as a part-time
-                                            Full Stack Developer — combining my engineering mindset with modern software
-                                            skills to solve real-world problems.</p>
-                                        <p contenteditable="false">I'm passionate about reverse engineering, automation,
-                                            and turning R&amp;D concepts into practical, market-ready products. Always
-                                            learning, always building. ⚡</p>
-                                    </div>
-                                    <div class="about-stats">
-                                        <div class="stat-card">
-                                            <div class="stat-num" contenteditable="false">2+</div>
-                                            <div class="stat-label">Years of R&amp;D Experience</div>
-                                        </div>
-                                        <div class="stat-card" style="border-left-color: var(--accent3)">
-                                            <div class="stat-num" contenteditable="false">5+</div>
-                                            <div class="stat-label">Machines Developed</div>
-                                        </div>
-                                        <div class="stat-card" style="border-left-color: var(--accent4)">
-                                            <div class="stat-num" contenteditable="false">2</div>
-                                            <div class="stat-label">Commercialized Products</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <div class="divider"></div>
-                            < !-- SKILLS -->
-                                <section id="skills">
-                                    <div class="section-label">What I Know</div>
-                                    <div class="section-title" contenteditable="false">Skills</div>
-                                    <div class="skill-cat">
-                                        <div class="skill-cat-title">Electrical &amp; Engineering</div>
-                                        <div class="skills-grid" id="frontend-skills">
-                                            <div class="skill-tag">AutoCAD Electrical <span class="remove-skill"
-                                                    onclick="removeSkill(this)">×</span></div>
-                                            <div class="skill-tag">LabVIEW <span class="remove-skill"
-                                                    onclick="removeSkill(this)">×</span></div>
-                                            <div class="skill-tag">Wiring Diagrams <span class="remove-skill"
-                                                    onclick="removeSkill(this)">×</span></div>
-                                            <div class="skill-tag">Circuit Analysis <span class="remove-skill"
-                                                    onclick="removeSkill(this)">×</span></div>
-                                            <div class="skill-tag">Reverse Engineering <span class="remove-skill"
-                                                    onclick="removeSkill(this)">×</span></div>
-                                            <div class="skill-tag">Machine Commissioning <span class="remove-skill"
-                                                    onclick="removeSkill(this)">×</span></div>
-                                        </div><button class="add-btn" onclick="addSkill('frontend-skills')">+Add
-                                            Skill</button>
-                                    </div>
-                                    <div class="skill-cat">
-                                        <div class="skill-cat-title">Full Stack Development</div>
-                                        <div class="skills-grid" id="backend-skills">
-                                            <div class="skill-tag">HTML / CSS <span class="remove-skill"
-                                                    onclick="removeSkill(this)">×</span></div>
-                                            <div class="skill-tag">JavaScript <span class="remove-skill"
-                                                    onclick="removeSkill(this)">×</span></div>
-                                            <div class="skill-tag">React <span class="remove-skill"
-                                                    onclick="removeSkill(this)">×</span></div>
-                                            <div class="skill-tag">Node.js <span class="remove-skill"
-                                                    onclick="removeSkill(this)">×</span></div>
-                                            <div class="skill-tag">REST API <span class="remove-skill"
-                                                    onclick="removeSkill(this)">×</span></div>
-                                        </div><button class="add-btn" onclick="addSkill('backend-skills')">+Add
-                                            Skill</button>
-                                    </div>
-                                    <div class="skill-cat">
-                                        <div class="skill-cat-title">Tools &amp; Soft Skills</div>
-                                        <div class="skills-grid" id="tools-skills">
-                                            <div class="skill-tag">Data Analysis <span class="remove-skill"
-                                                    onclick="removeSkill(this)">×</span></div>
-                                            <div class="skill-tag">Product Testing <span class="remove-skill"
-                                                    onclick="removeSkill(this)">×</span></div>
-                                            <div class="skill-tag">Troubleshooting <span class="remove-skill"
-                                                    onclick="removeSkill(this)">×</span></div>
-                                            <div class="skill-tag">Technical Documentation <span class="remove-skill"
-                                                    onclick="removeSkill(this)">×</span></div>
-                                            <div class="skill-tag">Team Coordination <span class="remove-skill"
-                                                    onclick="removeSkill(this)">×</span></div>
-                                        </div><button class="add-btn" onclick="addSkill('tools-skills')">+Add
-                                            Skill</button>
-                                    </div>
-                                </section>
-                                <div class="divider"></div>
-                                < !-- PROJECTS -->
-                                    <section id="projects">
-                                        <div class="section-label">What I Built</div>
-                                        <div class="section-title" contenteditable="false">Projects</div>
-                                        <div class="projects-grid" id="projectsGrid">
-                                            <div class="project-card"><button class="remove-project"
-                                                    onclick="removeProject(this)" title="Remove">×</button>
-                                                <div class="project-num">01</div>
-                                                <div class="project-title" contenteditable="false">Fuel Injection
-                                                    Service Test Bench</div>
-                                                <div class="project-desc" contenteditable="false">Led complete design,
-                                                    assembly, and testing of two industrial machines from concept to
-                                                    market-ready product. Integrated LabVIEW automation for real-time
-                                                    monitoring and data logging. Successfully commercialized and
-                                                    deployed in the industrial market.</div>
-                                                <div class="project-tags"><span class="project-tag">LabVIEW</span><span
-                                                        class="project-tag">AutoCAD Electrical</span><span
-                                                        class="project-tag">R&amp;D</span></div>
-                                                <div class="project-links"><a class="project-link"
-                                                        contenteditable="false" href="#"
-                                                        onclick="openDetail(0);return false;">→ Details</a></div>
-                                            </div>
-                                            <div class="project-card"><button class="remove-project"
-                                                    onclick="removeProject(this)" title="Remove">×</button>
-                                                <div class="project-num">02</div>
-                                                <div class="project-title" contenteditable="false">Reverse Engineering
-                                                    of Imported Machines</div>
-                                                <div class="project-desc" contenteditable="false">Reverse engineered
-                                                    imported industrial machines without original documentation. Rewired
-                                                    control circuits to local standards, created full AutoCAD Electrical
-                                                    schematics, and achieved significant cost savings by refurbishing
-                                                    instead of replacing.</div>
-                                                <div class="project-tags"><span class="project-tag">Reverse
-                                                        Engineering</span><span class="project-tag">AutoCAD
-                                                        Electrical</span><span class="project-tag">Wiring</span></div>
-                                                <div class="project-links"><a class="project-link"
-                                                        contenteditable="false" href="#"
-                                                        onclick="openDetail(1);return false;">→ Details</a></div>
-                                            </div>
-                                            <div class="project-card"><button class="remove-project"
-                                                    onclick="removeProject(this)" title="Remove">×</button>
-                                                <div class="project-num">03</div>
-                                                <div class="project-title" contenteditable="false">Product Testing &amp;
-                                                    Validation Benches</div>
-                                                <div class="project-desc" contenteditable="false">Independently designed
-                                                    and built two product testing benches and one product validation
-                                                    bench. Reduced testing time, improved accuracy, and minimized
-                                                    operator dependency. Commissioned at client sites including remote
-                                                    locations.</div>
-                                                <div class="project-tags"><span class="project-tag">Product
-                                                        Validation</span><span class="project-tag">Electrical
-                                                        Design</span><span class="project-tag">Commissioning</span>
-                                                </div>
-                                                <div class="project-links"><a class="project-link"
-                                                        contenteditable="false" href="#"
-                                                        onclick="openDetail(2);return false;">→ Details</a></div>
-                                            </div><button class="add-project-btn" onclick="addProject()">+Add
-                                                Project</button>
-                                        </div>
-                                    </section>
-                                    <div class="divider"></div>
-                                    < !-- RESUME -->
-                                        <section id="resume">
-                                            <div class="section-label">My CV</div>
-                                            <div class="section-title" contenteditable="false">Resume</div>
-                                            <div class="resume-section">
-                                                <div class="resume-row">
-                                                    <div class="resume-info">
-                                                        <h3 contenteditable="false">Mohammed Arfath M — Resume</h3>
-                                                        <p contenteditable="false">Download my full resume to learn more
-                                                            about my R&amp;D experience, engineering projects, and
-                                                            skills. Last updated: 2025</p>
-                                                    </div>
-                                                    <div><a class="btn btn-primary" id="resumeLink" href="#"
-                                                            target="_blank">⬇ Download PDF</a></div>
-                                                </div>
-                                                <div class="resume-edit-row" id="resumeEditRow"><label>Resume PDF URL
-                                                        (paste your Google Drive / Dropbox direct download
-                                                        link):</label><input type="text" id="resumeUrl"
-                                                        placeholder="https://drive.google.com/uc?export=download&id=..."
-                                                        oninput="updateResumeLink(this.value)" /></div>
-                                            </div>
-                                        </section>
-                                        <div class="divider"></div>
-                                        < !-- CONTACT -->
-                                            <section id="contact">
-                                                <div class="section-label">Get In Touch</div>
-                                                <div class="section-title" contenteditable="false">Contact</div>
-                                                <div class="contact-grid">
-                                                    <div class="contact-info">
-                                                        <div class="contact-item">
-                                                            <div class="contact-icon">📧</div>
-                                                            <div>
-                                                                <div class="contact-label">Email</div>
-                                                                <div class="contact-val" contenteditable="false">
-                                                                    mohammedarfath.meeer@gmail.com</div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="contact-item">
-                                                            <div class="contact-icon">📍</div>
-                                                            <div>
-                                                                <div class="contact-label">Location</div>
-                                                                <div class="contact-val" contenteditable="false">
-                                                                    Chennai, Tamil Nadu, India</div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="contact-item">
-                                                            <div class="contact-icon">💼</div>
-                                                            <div>
-                                                                <div class="contact-label">LinkedIn</div>
-                                                                <div class="contact-val" contenteditable="false">
-                                                                    in.linkedin.com/in/mohammedarfath</div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="contact-item">
-                                                            <div class="contact-icon">📞</div>
-                                                            <div>
-                                                                <div class="contact-label">Phone</div>
-                                                                <div class="contact-val" contenteditable="false">+91
-                                                                    9965089610</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="contact-form">
-                                                        <input type="text" id="contactName" placeholder="Your Name" />
-                                                        <input type="email" id="contactEmail"
-                                                            placeholder="Your Email" />
-                                                        <textarea id="contactMessage"
-                                                            placeholder="Your Message..."></textarea>
-                                                        <button class="btn btn-primary" id="sendBtn"
-                                                            onclick="sendMessage()"
-                                                            style="width:100%; border: none; cursor: pointer;">Send
-                                                            Message ✦</button>
-                                                    </div>
-                                                </div>
-                                            </section>
-                                            < !-- FOOTER -->
-                                                <footer>
-                                                    <p contenteditable="false">Designed &amp; Built by <strong>Mohammed
-                                                            Arfath M</strong> · 2025</p>
-                                                    <p style="margin-top: 8px; font-size: 11px; opacity: 0.4;">
-                                                        Triple-click the logo to enter edit mode</p>
-                                                </footer>
-                                                <!-- PROJECT DETAIL PAGES -->
-                                                <div class="project-detail-page" id="detailPage">
-                                                    <div class="detail-content">
-                                                        <button class="detail-back-btn" onclick="closeDetail()">← Back
-                                                            to Portfolio</button>
-                                                        <div class="detail-label" id="detailLabel"></div>
-                                                        <div class="detail-title" id="detailTitle"></div>
-                                                        <div class="detail-tags" id="detailTags"></div>
-                                                        <div class="detail-divider"></div>
-                                                        <div class="detail-section-title">Overview</div>
-                                                        <div class="detail-body" id="detailBody"></div>
-                                                        <div class="detail-highlights" id="detailHighlights"></div>
-                                                        <div class="detail-divider"></div>
-                                                        <div class="detail-links" id="detailLinks"></div>
-                                                    </div>
-                                                </div>
+            <div class="about-visual reveal">
+                <div class="photo-frame">
+                    <div class="photo-placeholder">MT</div>
+                </div>
+                <div class="photo-accent"></div>
+                <div class="photo-badge">EEE<br>Graduate<br>★ ★ ★</div>
+            </div>
+        </div>
+    </section>
 
-                                                <script> // ── CONFIG ──────────────────────────────────────────
-                                                    // Change this to your own secret password
-                                                    const OWNER_PASSWORD = "portfolio2024";
-                                                    // ────────────────────────────────────────────────────
+    <!-- SKILLS -->
+    <section class="skills" id="skills">
+        <div class="section-label reveal">02 — Expertise</div>
+        <div class="skills-grid reveal">
+            <div class="skill-card">
+                <div class="skill-icon">⚡</div>
+                <h3>Electronics & PCB</h3>
+                <p>PCB assembly, testing, and troubleshooting for electronic modules including defence-grade systems.
+                </p>
+                <div class="skill-tags">
+                    <span class="tag">PCB Design</span>
+                    <span class="tag">Assembly</span>
+                    <span class="tag">Testing</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🔧</div>
+                <h3>Electrical Systems</h3>
+                <p>Wiring, control system support, troubleshooting, and preventive maintenance for automotive systems.
+                </p>
+                <div class="skill-tags">
+                    <span class="tag">Wiring</span>
+                    <span class="tag">Control Systems</span>
+                    <span class="tag">Maintenance</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🛠️</div>
+                <h3>Hydraulic Systems</h3>
+                <p>Hydraulic circuit panel operations and system functionality management in automotive environments.
+                </p>
+                <div class="skill-tags">
+                    <span class="tag">Hydraulics</span>
+                    <span class="tag">Panel Ops</span>
+                    <span class="tag">NPD</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">📊</div>
+                <h3>Data Analytics</h3>
+                <p>Data processing, visualization, and decision-support reporting using modern analytics tools.</p>
+                <div class="skill-tags">
+                    <span class="tag">Power BI</span>
+                    <span class="tag">Google Colab</span>
+                    <span class="tag">MS Excel</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">✅</div>
+                <h3>Validation & Testing</h3>
+                <p>Automotive system validation for performance, reliability, and compliance to engineering standards.
+                </p>
+                <div class="skill-tags">
+                    <span class="tag">Validation</span>
+                    <span class="tag">Performance Testing</span>
+                    <span class="tag">SOP Tool</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">💻</div>
+                <h3>Software & Programming</h3>
+                <p>Proficient in productivity and engineering documentation tools with foundational programming skills.
+                </p>
+                <div class="skill-tags">
+                    <span class="tag">C (Basics)</span>
+                    <span class="tag">MS Office</span>
+                    <span class="tag">Canva</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                                                    let isEditing = false;
-                                                    let isOwner = false;
-                                                    let projectCount = 3;
+    <!-- PROJECTS -->
+    <section class="projects" id="projects">
+        <div class="projects-header reveal">
+            <h2>Selected <span>Work</span></h2>
+        </div>
+        <div class="project-list reveal">
+            <a href="#" class="project-item">
+                <div class="project-num">01</div>
+                <div class="project-info">
+                    <h3>IoT Based Health Monitoring System</h3>
+                    <p>Microcontroller-based system for real-time patient vitals — wireless transmission, cloud storage
+                        & automated alerts</p>
+                </div>
+                <span class="project-type">IoT / Embedded</span>
+                <span class="project-arrow">↗</span>
+            </a>
+            <a href="#" class="project-item">
+                <div class="project-num">02</div>
+                <div class="project-info">
+                    <h3>Underwater VLC System</h3>
+                    <p>Visible Light Communication using high-intensity LEDs & photodiodes — modulation, attenuation &
+                        noise reduction</p>
+                </div>
+                <span class="project-type">Optical / Communication</span>
+                <span class="project-arrow">↗</span>
+            </a>
+            <a href="#" class="project-item">
+                <div class="project-num">03</div>
+                <div class="project-info">
+                    <h3>Traffic Flow Optimization</h3>
+                    <p>Intelligent adaptive signal timing using real-time traffic density sensing — reduced congestion &
+                        wait times</p>
+                </div>
+                <span class="project-type">Smart Systems / Control</span>
+                <span class="project-arrow">↗</span>
+            </a>
+        </div>
+    </section>
 
-                                                    // ── PROJECT DETAIL DATA ──────────────────────────────
-                                                    const projectDetails = [
-                                                        {
-                                                            label: "Project 01 · R&D",
-                                                            title: "Fuel Injection Service Test Bench",
-                                                            tags: ["LabVIEW", "AutoCAD Electrical", "R&D", "Machine Development", "Data Logging"],
-                                                            body: `
-                                                                <p>Led the complete design, assembly, and testing of two industrial fuel injection service test bench machines — from initial concept all the way to a market-ready, commercialized product.</p>
-                                                                <p>The project involved close collaboration with the R&D team to understand fuel injection system requirements, followed by hands-on electrical wiring, component sourcing, and bench assembly. LabVIEW was integrated for real-time monitoring and automated data logging, drastically reducing manual measurement errors.</p>
-                                                                <p>Both machines were successfully commercialized and are currently deployed in the industrial market, serving as reliable diagnostic tools for fuel injection systems.</p>
-                                                            `,
-                                                            highlights: [
-                                                                { title: "Automation", desc: "Integrated LabVIEW for real-time monitoring and automated data acquisition." },
-                                                                { title: "Outcome", desc: "2 machines commercialized and deployed in the industrial market." },
-                                                                { title: "Role", desc: "Led full project lifecycle — design, wiring, assembly, testing, and delivery." },
-                                                                { title: "Tools", desc: "LabVIEW, AutoCAD Electrical, oscilloscopes, and electrical test equipment." }
-                                                            ]
-                                                        },
-                                                        {
-                                                            label: "Project 02 · Reverse Engineering",
-                                                            title: "Reverse Engineering of Imported Machines",
-                                                            tags: ["Reverse Engineering", "AutoCAD Electrical", "Control Circuits", "Wiring", "Cost Savings"],
-                                                            body: `
-                                                                <p>Took on the complex challenge of reverse engineering imported industrial machines that had no original documentation — no schematics, no manuals, and no vendor support.</p>
-                                                                <p>Starting from a physical inspection of each machine, I traced and mapped every circuit, identified components, and recreated the full wiring logic from scratch. Control circuits were then redesigned and rewired to meet local electrical standards, ensuring compliance and safety.</p>
-                                                                <p>Full AutoCAD Electrical schematics were produced for each machine, creating permanent documentation that didn't previously exist. Refurbishing instead of replacing the machines led to significant cost savings for the company.</p>
-                                                            `,
-                                                            highlights: [
-                                                                { title: "Challenge", desc: "Zero original documentation — all schematics created from physical trace-back." },
-                                                                { title: "Deliverable", desc: "Complete AutoCAD Electrical schematics produced for all machines." },
-                                                                { title: "Impact", desc: "Significant cost savings achieved by refurbishing over replacing." },
-                                                                { title: "Compliance", desc: "Rewired to meet local electrical and safety standards." }
-                                                            ]
-                                                        },
-                                                        {
-                                                            label: "Project 03 · Product Validation",
-                                                            title: "Product Testing & Validation Benches",
-                                                            tags: ["Product Validation", "Electrical Design", "Commissioning", "Testing", "Automation"],
-                                                            body: `
-                                                                <p>Independently designed and built two product testing benches and one product validation bench tailored to specific component testing requirements within the manufacturing pipeline.</p>
-                                                                <p>Each bench was engineered to replicate real operating conditions, allowing consistent, repeatable testing with minimal operator dependency. Custom electrical panels and control circuits were designed and wired in-house.</p>
-                                                                <p>The benches reduced testing cycle time significantly, improved measurement accuracy, and were successfully commissioned at multiple client sites — including remote locations requiring on-site installation and calibration.</p>
-                                                            `,
-                                                            highlights: [
-                                                                { title: "Scale", desc: "3 benches built: 2 testing benches + 1 validation bench." },
-                                                                { title: "Efficiency", desc: "Reduced testing time and improved measurement accuracy." },
-                                                                { title: "Commissioning", desc: "Deployed at multiple client sites including remote locations." },
-                                                                { title: "Design", desc: "Custom electrical panels and control circuits designed in-house." }
-                                                            ]
-                                                        }
-                                                    ];
+    <!-- EXPERIENCE -->
+    <section class="experience" id="experience">
+        <div class="exp-grid">
+            <div class="exp-left">
+                <div class="section-label reveal">04 — Timeline</div>
+                <h2 class="reveal">Work &<br><span>Education</span></h2>
+            </div>
+            <div class="timeline reveal">
+                <div class="timeline-item">
+                    <div class="timeline-date">May 2025 — Current</div>
+                    <h3>Short Term Trainee — NPD & Validation</h3>
+                    <div class="timeline-company">DTVS Technologies</div>
+                    <p class="timeline-desc">Supporting the Engineering & Development Department with electrical wiring,
+                        control system troubleshooting, preventive maintenance, hydraulic circuit panel operations, and
+                        automotive validation processes.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">May 2025</div>
+                    <h3>Data Analytics Intern</h3>
+                    <div class="timeline-company">Grandtwin</div>
+                    <p class="timeline-desc">Developed proficiency in Google Colab and Power BI for data processing and
+                        visualization. Interpreted complex datasets to support practical engineering decision-making and
+                        reporting.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Oct 2024</div>
+                    <h3>Engineering Intern — R&D</h3>
+                    <div class="timeline-company">Info System (Bel Thales)</div>
+                    <p class="timeline-desc">Hands-on exposure to R&D workflows in electronic system development.
+                        Assisted in PCB assembly, testing, and performance validation of defence-grade systems for
+                        military and aerospace applications.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2021 — 2025</div>
+                    <h3>B.E. Electrical Communication Engineering</h3>
+                    <div class="timeline-company">Dhirajlal Gandhi College of Technology, Salem — CGPA 7.8</div>
+                    <p class="timeline-desc">Four-year undergraduate program covering electrical systems,
+                        communications, electronics, and embedded systems. SSLC: 86% | HSC: 88%.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                                                    function openDetail(index) {
-                                                        const p = projectDetails[index];
-                                                        if (!p) return;
-                                                        document.getElementById('detailLabel').innerHTML = p.label;
-                                                        document.getElementById('detailTitle').innerHTML = p.title;
-                                                        document.getElementById('detailTags').innerHTML = p.tags.map(t => `<span class="detail-tag">${t}</span>`).join('');
-                                                        document.getElementById('detailBody').innerHTML = p.body;
-                                                        document.getElementById('detailHighlights').innerHTML = p.highlights.map(h =>
-                                                            `<div class="detail-highlight-card"><h4>${h.title}</h4><p>${h.desc}</p></div>`
-                                                        ).join('');
-                                                        document.getElementById('detailLinks').innerHTML =
-                                                            `<a class="btn btn-secondary" href="#" onclick="closeDetail();return false;">← Back to Portfolio</a>`;
-                                                        const page = document.getElementById('detailPage');
-                                                        page.classList.add('active');
-                                                        page.scrollTop = 0;
-                                                        history.pushState({ detail: index }, '', '#project-' + (index + 1));
-                                                    }
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <div class="section-label">05 — Get In Touch</div>
+        <div class="contact-inner">
+            <div>
+                <h2>Let's Build<br>Something<br><span class="accent">Real.</span></h2>
+            </div>
+            <div class="contact-form">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" placeholder="Jane Smith">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="megavarshinithirumoorthi@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea rows="4" placeholder="Tell me about your project..."></textarea>
+                </div>
+                <button class="btn-dark">Send Message ↗</button>
+            </div>
+        </div>
+    </section>
 
-                                                    function closeDetail() {
-                                                        document.getElementById('detailPage').classList.remove('active');
-                                                        history.pushState({}, '', window.location.pathname);
-                                                    }
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">MEGAVARSHINI T</div>
+        <div class="footer-copy">© 2026 — Salem, Tamil Nadu · +91 63802 98053</div>
+        <div class="social-links">
+            <a href="mailto:megavarshinithirumoorthi@gmail.com">Email</a>
+            <a href="#">LinkedIn</a>
+        </div>
+    </footer>
 
-                                                    window.addEventListener('popstate', function (e) {
-                                                        if (!e.state || !('detail' in e.state)) {
-                                                            document.getElementById('detailPage').classList.remove('active');
-                                                        }
-                                                    });
-                                                    // ─────────────────────────────────────────────────────
+    <script>
+        // Custom cursor
+        const cursor = document.getElementById('cursor');
+        const ring = document.getElementById('cursorRing');
+        let mx = 0, my = 0;
 
-                                                    // Smooth scroll
-                                                    function goTo(id) {
-                                                        const el = document.getElementById(id);
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX; my = e.clientY;
+            cursor.style.left = mx + 'px';
+            cursor.style.top = my + 'px';
+            ring.style.left = mx + 'px';
+            ring.style.top = my + 'px';
+        });
 
-                                                        if (el) el.scrollIntoView({
-                                                            behavior: 'smooth'
-                                                        });
-                                                    }
+        document.querySelectorAll('a, button, .skill-card, .project-item, .stat-box').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '20px';
+                cursor.style.height = '20px';
+                cursor.style.background = '#FF4C00';
+                ring.style.width = '60px';
+                ring.style.height = '60px';
+                ring.style.borderColor = '#FF4C00';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '12px';
+                cursor.style.height = '12px';
+                cursor.style.background = '#FFD000';
+                ring.style.width = '40px';
+                ring.style.height = '40px';
+                ring.style.borderColor = '#FFD000';
+            });
+        });
 
-                                                    // Triple-click logo to open login
-                                                    let clickCount = 0,
-                                                        clickTimer;
+        // Scroll reveal
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach((e, i) => {
+                if (e.isIntersecting) {
+                    e.target.style.transitionDelay = (i % 3) * 0.1 + 's';
+                    e.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
 
-                                                    document.getElementById('logoText').addEventListener('click', function () {
-                                                        if (isOwner) return;
-                                                        clickCount++;
-                                                        clearTimeout(clickTimer);
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-                                                        clickTimer = setTimeout(() => {
-                                                            clickCount = 0;
-                                                        }
+        // Parallax hero bg text
+        window.addEventListener('scroll', () => {
+            const bgText = document.querySelector('.hero-bg-text');
+            if (bgText) {
+                bgText.style.transform = `translateY(calc(-50% + ${window.scrollY * 0.2}px))`;
+            }
+        });
+    </script>
+</body>
 
-                                                            , 600);
-
-                                                        if (clickCount >= 3) {
-                                                            clickCount = 0;
-                                                            openLogin();
-                                                        }
-                                                    });
-
-                                                    function openLogin() {
-                                                        document.getElementById('loginOverlay').style.display = 'flex';
-                                                        setTimeout(() => document.getElementById('pwInput').focus(), 80);
-                                                    }
-
-                                                    document.getElementById('pwInput').addEventListener('keydown', function (e) {
-                                                        if (e.key === 'Enter') checkLogin();
-                                                        if (e.key === 'Escape') document.getElementById('loginOverlay').style.display = 'none';
-                                                    });
-
-                                                    function checkLogin() {
-                                                        const pw = document.getElementById('pwInput').value;
-
-                                                        if (pw === OWNER_PASSWORD) {
-                                                            isOwner = true;
-                                                            document.getElementById('loginOverlay').style.display = 'none';
-                                                            document.getElementById('editBadge').style.display = 'flex';
-                                                            enableEditing();
-                                                        }
-
-                                                        else {
-                                                            document.getElementById('loginErr').style.display = 'block';
-                                                            document.getElementById('pwInput').value = '';
-                                                            document.getElementById('pwInput').focus();
-                                                        }
-                                                    }
-
-                                                    function enableEditing() {
-                                                        isEditing = true;
-                                                        document.body.classList.add('edit-mode');
-                                                        document.getElementById('editLabel').textContent = 'EDITING — Click to Save & Download';
-                                                        document.getElementById('resumeEditRow').style.display = 'block';
-
-                                                        document.querySelectorAll('[contenteditable]').forEach(el => {
-                                                            el.setAttribute('contenteditable', 'true');
-                                                        });
-                                                    }
-
-                                                    function disableEditing() {
-                                                        isEditing = false;
-                                                        document.body.classList.remove('edit-mode');
-                                                        document.getElementById('editLabel').textContent = 'Edit Portfolio';
-                                                        document.getElementById('resumeEditRow').style.display = 'none';
-
-                                                        document.querySelectorAll('[contenteditable]').forEach(el => {
-                                                            el.setAttribute('contenteditable', 'false');
-                                                        });
-                                                        downloadHTML();
-                                                    }
-
-                                                    function toggleEdit() {
-                                                        if (!isOwner) return;
-                                                        if (isEditing) disableEditing();
-                                                        else enableEditing();
-                                                    }
-
-                                                    function downloadHTML() {
-                                                        // Clone the document so we can clean it up before export
-                                                        const clone = document.documentElement.cloneNode(true);
-
-                                                        // Remove the login overlay content for the saved version
-                                                        const overlay = clone.querySelector('#loginOverlay');
-                                                        if (overlay) overlay.style.display = 'none';
-
-                                                        // Hide edit badge in saved file
-                                                        const badge = clone.querySelector('#editBadge');
-                                                        if (badge) badge.style.display = 'none';
-
-                                                        // Hide resume edit row
-                                                        const resumeRow = clone.querySelector('#resumeEditRow');
-                                                        if (resumeRow) resumeRow.style.display = 'none';
-
-                                                        // Make sure all contenteditable fields are locked in saved file
-                                                        clone.querySelectorAll('[contenteditable]').forEach(el => {
-                                                            el.setAttribute('contenteditable', 'false');
-                                                        });
-
-                                                        const html = '<!DOCTYPE html>\n' + clone.outerHTML;
-                                                        const blob = new Blob([html], { type: 'text/html' });
-                                                        const url = URL.createObjectURL(blob);
-                                                        const a = document.createElement('a');
-                                                        a.href = url;
-                                                        a.download = 'portfolio.html';
-                                                        document.body.appendChild(a);
-                                                        a.click();
-                                                        document.body.removeChild(a);
-                                                        URL.revokeObjectURL(url);
-                                                        showToast('✓ Saved & Downloaded!');
-                                                    }
-
-                                                    function showToast(msg) {
-                                                        const t = document.createElement('div');
-                                                        t.className = 'toast';
-                                                        t.textContent = msg;
-                                                        document.body.appendChild(t);
-                                                        setTimeout(() => t.remove(), 2700);
-                                                    }
-
-                                                    // Skills
-                                                    function addSkill(gridId) {
-                                                        const name = prompt('Skill name:');
-                                                        if (!name || !name.trim()) return;
-                                                        const grid = document.getElementById(gridId);
-                                                        const tag = document.createElement('div');
-                                                        tag.className = 'skill-tag';
-                                                        tag.innerHTML = name.trim() + ' <span class="remove-skill" onclick="removeSkill(this)">×</span>';
-                                                        grid.appendChild(tag);
-                                                    }
-
-                                                    function removeSkill(btn) {
-                                                        btn.parentElement.remove();
-                                                    }
-
-                                                    // Projects
-                                                    function addProject() {
-                                                        projectCount++;
-                                                        const grid = document.getElementById('projectsGrid');
-                                                        const addBtn = grid.querySelector('.add-project-btn');
-                                                        const card = document.createElement('div');
-                                                        card.className = 'project-card';
-
-                                                        card.innerHTML = ` <button class="remove-project" onclick="removeProject(this)" title="Remove">×</button><div class="project-num">$ {
-        String(projectCount).padStart(2, '0')
-    }
-
-    </div><div class="project-title" contenteditable="true">Project Title</div><div class="project-desc" contenteditable="true">Describe your project — what you built and the impact it made.</div><div class="project-tags"><span class="project-tag">Tech</span></div><div class="project-links"><a class="project-link" contenteditable="true" href="#">→ Live Demo</a><a class="project-link" contenteditable="true" href="#">GitHub</a></div>`;
-                                                        grid.insertBefore(card, addBtn);
-                                                    }
-
-                                                    function removeProject(btn) {
-                                                        btn.closest('.project-card').remove();
-                                                    }
-
-                                                    // Resume link
-                                                    function updateResumeLink(url) {
-                                                        document.getElementById('resumeLink').href = url.trim("https://drive.google.com/file/d/1BuDn80Ybps0ZzldA80OtgwMggDAW3ef8/view?usp=drive_link") || '#';
-                                                    }
-
-                                                    // ── EMAILJS CONTACT FORM ─────────────────────────────
-                                                    // ⚠️  Replace these three values with your own from emailjs.com
-                                                    const EMAILJS_PUBLIC_KEY = "jKWa-B_axgg1B78ym";      // Account → Public Key
-                                                    const EMAILJS_SERVICE_ID = "service_026jzsp";      // Email Services → Service ID
-                                                    const EMAILJS_TEMPLATE_ID = "template_n6n9gj8";     // Email Templates → Template ID
-                                                    // ─────────────────────────────────────────────────────
-
-                                                    // Load EmailJS SDK
-                                                    (function () {
-                                                        const s = document.createElement('script');
-                                                        s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
-                                                        s.onload = function () { emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); };
-                                                        document.head.appendChild(s);
-                                                    })();
-
-                                                    function sendMessage() {
-                                                        const name = document.getElementById('contactName').value.trim();
-                                                        const email = document.getElementById('contactEmail').value.trim();
-                                                        const message = document.getElementById('contactMessage').value.trim();
-                                                        const btn = document.getElementById('sendBtn');
-
-                                                        if (!name || !email || !message) {
-                                                            showToast('⚠️ Please fill in all fields.');
-                                                            return;
-                                                        }
-
-                                                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                                                        if (!emailRegex.test(email)) {
-                                                            showToast('⚠️ Please enter a valid email address.');
-                                                            return;
-                                                        }
-
-                                                        btn.disabled = true;
-                                                        btn.textContent = 'Sending…';
-                                                        btn.style.opacity = '0.7';
-
-                                                        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                                                            from_name: name,
-                                                            from_email: email,
-                                                            message: message,
-                                                            reply_to: email
-                                                        }).then(function () {
-                                                            showToast('✓ Message sent! I\'ll get back to you soon.');
-                                                            document.getElementById('contactName').value = '';
-                                                            document.getElementById('contactEmail').value = '';
-                                                            document.getElementById('contactMessage').value = '';
-                                                            btn.textContent = 'Send Message ✦';
-                                                            btn.disabled = false;
-                                                            btn.style.opacity = '1';
-                                                        }, function (error) {
-                                                            console.error('EmailJS error:', error);
-                                                            showToast('❌ Failed to send. Please try again.');
-                                                            btn.textContent = 'Send Message ✦';
-                                                            btn.disabled = false;
-                                                            btn.style.opacity = '1';
-                                                        });
-                                                    }
-                                                    // ─────────────────────────────────────────────────────
-
-                                                </script>
-    </body>
-
-    </html>
+</html>
